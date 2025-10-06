@@ -23,7 +23,7 @@ const Hero = () => {
   const handleResumeClick = () => {
     // This will be used when resume PDF is added
     console.log("Resume clicked - PDF will be displayed here");
-    window.open('/VishnuResume.pdf', '_blank');
+    window.open('/public/VishnuResume.pdf', '_blank');
   };
   
   useEffect(() => {
