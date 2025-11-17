@@ -4,7 +4,7 @@ A personal portfolio website built with React, Vite, and shadcn/ui to showcase p
 
 ## Live Demo
 
-[Link to live demo](https://your-live-demo-link.com)
+[Link to live demo](https://vishnu-vardhan-pullagura.vercel.app)
 
 ## Features
 
