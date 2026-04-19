@@ -22,22 +22,6 @@ export function initTyping() {
 
 // Typewriter → shimmer sweep on hero name
 export function initHeroName() {
-  function wrapChars(el) {
-    const text = el.textContent.trim();
-
-    el.innerHTML = '';
-    text.split('').forEach(ch => {
-      const wrap = document.createElement('span');
-      const char = document.createElement('span');
-
-      wrap.className = 'char-wrap';
-      char.className = 'char';
-      char.textContent = ch;
-      wrap.appendChild(char);
-      el.appendChild(wrap);
-    });
-  }
-
   function typeLine(el, text, onComplete) {
     let index = 0;
 
@@ -57,33 +41,6 @@ export function initHeroName() {
     }, 140);
   }
 
-  function flashLetter(el) {
-    const chars = el.querySelectorAll('.char');
-    if (!chars.length) return;
-
-    const idx = Math.floor(Math.random() * chars.length);
-    const c = chars[idx];
-    const isOutlineLine = el.classList.contains('line2');
-    const flickerColor = isOutlineLine ? 'var(--text)' : 'var(--accent)';
-    const flickerGlow = isOutlineLine ? 'rgba(232, 228, 240, 0.75)' : 'var(--accent)';
-
-    c.style.transition = 'color 0.18s ease, text-shadow 0.18s ease';
-    c.style.color = flickerColor;
-    c.style.textShadow = `0 0 20px ${flickerGlow}`;
-
-    setTimeout(() => {
-      c.style.color = '';
-      c.style.textShadow = '';
-    }, 240 + Math.random() * 180);
-  }
-
-  function startFlicker(firstLine, secondLine) {
-    setInterval(() => {
-      flashLetter(firstLine);
-      flashLetter(secondLine);
-    }, 3000 + Math.random() * 1400);
-  }
-
   const scramble1 = document.getElementById('scramble-1');
   const scramble2 = document.getElementById('scramble-2');
   if (!scramble1 || !scramble2) return;
@@ -100,9 +57,6 @@ export function initHeroName() {
       setTimeout(() => {
         typeLine(scramble2, secondText, () => {
           heroName?.classList.add('is-loaded');
-          wrapChars(scramble1);
-          wrapChars(scramble2);
-          startFlicker(scramble1, scramble2);
         });
       }, 250);
     });

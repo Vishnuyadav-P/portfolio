@@ -85,28 +85,6 @@
 .hero-name .line2.is-typing::after {
   background: var(--text);
 }
-.hero-name .char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(100%) skewY(8deg);
-  animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.hero-name.is-loaded .char {
-  opacity: 1;
-  transform: translateY(0) skewY(0deg);
-  animation: none;
-}
-.hero-name .char-wrap {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: top;
-}
-.hero-name.is-loaded:hover .char {
-  animation: charShimmer 1.8s ease forwards;
-}
-.hero-name.is-loaded:hover .line2 .char {
-  animation: charShimmerOutline 1.8s ease forwards;
-}
 .hero-bottom {
   display: flex;
   align-items: flex-end;

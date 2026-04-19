@@ -1,7 +1,7 @@
 import { initLoader }    from './loader.js';
 import { initCursor }    from './cursor.js';
 import { initParticles } from './particles.js';
-import { initTyping, initHeroName } from './typing.js';
+import { initTyping, initHeroName } from './typing.js?v=4';
 import { initScroll }    from './scroll.js';
 import { initCounters }  from './counters.js';
 import { initTilt }      from './tilt.js';
