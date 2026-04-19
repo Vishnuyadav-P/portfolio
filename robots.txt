@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vishnu-vardhan-pullagura.vercel.app/sitemap.xml

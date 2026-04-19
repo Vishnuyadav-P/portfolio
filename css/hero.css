@@ -1,0 +1,179 @@
+#hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 48px 80px;
+  overflow: hidden;
+}
+#particles-canvas {
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-particles-vignette {
+  position: absolute;
+  top: 0; right: 0;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 30%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-number {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--border);
+  letter-spacing: .1em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  user-select: none;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: .2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp .8s .3s forwards;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+.typing-cursor {
+  display: inline-block;
+  color: var(--accent);
+  animation: blink .7s step-end infinite;
+  font-weight: 700;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 12vw, 180px);
+  line-height: .9;
+  letter-spacing: -.01em;
+  color: var(--text);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp .8s .5s forwards;
+}
+.hero-name .line2 {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(203, 35, 16, 0.5);
+}
+.hero-name .is-typing::after {
+  content: '';
+  display: inline-block;
+  width: .05em;
+  height: .75em;
+  margin-left: .04em;
+  background: currentColor;
+  animation: blink .7s step-end infinite;
+}
+.hero-name .line2.is-typing::after {
+  background: var(--text);
+}
+.hero-name .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%) skewY(8deg);
+  animation: charReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-name.is-loaded .char {
+  opacity: 1;
+  transform: translateY(0) skewY(0deg);
+  animation: none;
+}
+.hero-name .char-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.hero-name.is-loaded:hover .char {
+  animation: charShimmer 1.8s ease forwards;
+}
+.hero-name.is-loaded:hover .line2 .char {
+  animation: charShimmerOutline 1.8s ease forwards;
+}
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 40px;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeUp .8s .8s forwards;
+}
+.hero-tagline {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 360px;
+  line-height: 1.6;
+}
+.hero-tagline strong { color: var(--text); font-weight: 500; }
+.hero-ctas { display: flex; gap: 16px; align-items: center; }
+.hero-scroll {
+  position: absolute;
+  right: 48px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  opacity: 0;
+  animation: fadeUp .8s 1.2s forwards;
+}
+.hero-scroll::after {
+  content: '';
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+  animation: scrollLine 1.5s ease-in-out infinite;
+}
+
+/* marquee */
+.marquee-wrap {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  padding: 14px 0;
+  background: var(--surface);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+}
+.marquee-item span { color: var(--accent); font-size: 18px; line-height: 1; }

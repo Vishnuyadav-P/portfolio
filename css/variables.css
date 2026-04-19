@@ -1,0 +1,13 @@
+:root {
+  --bg:           #060608;
+  --bg2:          #0d0d12;
+  --surface:      #111118;
+  --accent:       #cb2310;
+  --accent2:      #e8402a;
+  --text:         #e8e4f0;
+  --muted:        #6b6880;
+  --border:       #1e1e2a;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-mono:    'Space Mono', monospace;
+  --font-body:    'DM Sans', sans-serif;
+}
