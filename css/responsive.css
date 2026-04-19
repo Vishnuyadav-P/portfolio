@@ -18,6 +18,8 @@
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .timeline { padding-left: 40px; }
   .timeline-dot { left: -44px; }
+  .activity-card { grid-template-columns: 1fr; gap: 20px; padding: 28px 22px; }
+  .activity-columns { grid-template-columns: 1fr; gap: 18px; }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
   footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px 20px; }
   body,
