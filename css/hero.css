@@ -85,6 +85,13 @@
 .hero-name .line2.is-typing::after {
   background: var(--text);
 }
+.hero-name .char {
+  display: inline-block;
+  transition: color .22s ease, text-shadow .22s ease;
+}
+.hero-name .line2 .char {
+  color: transparent;
+}
 .hero-bottom {
   display: flex;
   align-items: flex-end;

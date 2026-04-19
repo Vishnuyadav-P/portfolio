@@ -26,10 +26,14 @@ export function initHeroName() {
     let index = 0;
 
     el.classList.add('is-typing');
+    el.innerHTML = '';
 
     const typing = setInterval(() => {
+      const char = document.createElement('span');
+      char.className = 'char';
+      char.textContent = text[index];
+      el.appendChild(char);
       index += 1;
-      el.textContent = text.slice(0, index);
 
       if (index >= text.length) {
         clearInterval(typing);
@@ -39,6 +43,29 @@ export function initHeroName() {
         }, 350);
       }
     }, 140);
+  }
+
+  function flashChar(el, color, glow) {
+    const chars = el.querySelectorAll('.char');
+    if (!chars.length) return;
+
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    char.classList.add('is-flashing');
+    char.style.color = color;
+    char.style.textShadow = `0 0 20px ${glow}`;
+
+    setTimeout(() => {
+      char.classList.remove('is-flashing');
+      char.style.color = '';
+      char.style.textShadow = '';
+    }, 420);
+  }
+
+  function startLetterFlash(firstLine, secondLine) {
+    setInterval(() => {
+      flashChar(firstLine, 'var(--accent)', 'var(--accent)');
+      flashChar(secondLine, 'var(--text)', 'rgba(232, 228, 240, 0.75)');
+    }, 3600);
   }
 
   const scramble1 = document.getElementById('scramble-1');
@@ -57,6 +84,7 @@ export function initHeroName() {
       setTimeout(() => {
         typeLine(scramble2, secondText, () => {
           heroName?.classList.add('is-loaded');
+          startLetterFlash(scramble1, scramble2);
         });
       }, 250);
     });
