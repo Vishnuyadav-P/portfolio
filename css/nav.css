@@ -2,33 +2,65 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
+  padding: 22px 44px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 24px 48px;
+  align-items: center;
+  transition:
+    padding 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    top 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    left 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    right 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.4s ease,
+    backdrop-filter 0.4s ease,
+    box-shadow 0.4s ease;
 }
+
+nav.scrolled {
+  top: 16px;
+  left: 15%;
+  right: 15%;
+  gap: 48px;
+  padding: 14px 36px;
+  border-radius: 100px;
+  background: rgba(12,12,11,0.80);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
 .nav-logo {
   font-family: var(--font-mono);
   font-size: 13px;
+  font-weight: 800;
   letter-spacing: .1em;
   color: var(--muted);
   text-decoration: none;
 }
 .nav-logo span { color: var(--accent); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
 .nav-links {
   display: flex;
-  gap: 36px;
+  gap: 28px;
   list-style: none;
 }
 .nav-links a {
   font-family: var(--font-mono);
   font-size: 11px;
-  letter-spacing: .15em;
+  font-weight: 400;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--muted);
-  text-decoration: none;
+  transition: color 0.3s;
   position: relative;
-  transition: color .3s;
+  text-decoration: none;
 }
 .nav-links a::after {
   content: '';
@@ -36,10 +68,11 @@ nav {
   bottom: -3px; left: 0;
   width: 0; height: 1px;
   background: var(--accent);
-  transition: width .3s;
+  transition: width 0.3s ease;
 }
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { width: 100%; }
+
 .nav-resume {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -48,10 +81,11 @@ nav {
   color: var(--accent);
   text-decoration: none;
   border: 1px solid var(--accent);
+  border-radius: 100px;
   padding: 8px 20px;
   position: relative;
   overflow: hidden;
-  transition: color .3s;
+  transition: all .3s;
 }
 .nav-resume::before {
   content: '';
@@ -61,6 +95,6 @@ nav {
   transform: translateX(-101%);
   transition: transform .3s ease;
 }
-.nav-resume:hover { color: var(--bg); }
+.nav-resume:hover { color: var(--bg); border-color: var(--accent); }
 .nav-resume:hover::before { transform: translateX(0); }
 .nav-resume span { position: relative; z-index: 1; }

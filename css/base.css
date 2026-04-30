@@ -126,6 +126,25 @@ section {
 }
 .reveal-left.visible { opacity: 1; transform: none; }
 
+/* Text reveal animation */
+.text-reveal .line-mask {
+  display: block;
+  overflow: hidden;
+}
+.text-reveal .line-text {
+  display: block;
+  transform: translateY(110%);
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.text-reveal.visible .line-text {
+  transform: translateY(0);
+}
+.text-reveal.visible .line-mask:nth-child(1) .line-text { transition-delay: 0.0s; }
+.text-reveal.visible .line-mask:nth-child(2) .line-text { transition-delay: 0.1s; }
+.text-reveal.visible .line-mask:nth-child(3) .line-text { transition-delay: 0.2s; }
+.text-reveal.visible .line-mask:nth-child(4) .line-text { transition-delay: 0.3s; }
+.text-reveal.visible .line-mask:nth-child(5) .line-text { transition-delay: 0.4s; }
+
 /* buttons */
 .btn-primary {
   font-family: var(--font-mono);

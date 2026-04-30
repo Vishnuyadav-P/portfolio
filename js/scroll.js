@@ -1,6 +1,6 @@
 export function initScroll() {
   // Generic reveal on scroll
-  const items = document.querySelectorAll('.reveal, .reveal-left');
+  const items = document.querySelectorAll('.reveal, .reveal-left, .text-reveal');
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1 });
@@ -38,8 +38,10 @@ export function initScroll() {
   window.addEventListener('scroll', () => {
     if (!nav) return;
     const scrolled = window.scrollY > 60;
-    nav.style.background    = scrolled ? 'rgba(6,6,8,.9)' : 'transparent';
-    nav.style.backdropFilter = scrolled ? 'blur(12px)'    : 'none';
-    nav.style.transition    = 'background .3s, backdrop-filter .3s';
+    if (scrolled) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
   }, { passive: true });
 }
