@@ -14,6 +14,18 @@
   height: 100%;
   z-index: 0;
 }
+.hero-bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  z-index: 0;
+  mask-image: linear-gradient(to right, transparent, black 30%);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
+}
 .hero-particles-vignette {
   position: absolute;
   top: 0; right: 0;

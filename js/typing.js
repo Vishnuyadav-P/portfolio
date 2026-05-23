@@ -49,7 +49,7 @@ export function initHeroName() {
     const chars = el.querySelectorAll('.char');
     if (!chars.length) return;
 
-    const char = chars[Math.floor(Math.random() * chars.length)];
+    const char = chars.item(Math.floor(Math.random() * chars.length));
     char.classList.add('is-flashing');
     char.style.color = color;
     char.style.textShadow = `0 0 20px ${glow}`;

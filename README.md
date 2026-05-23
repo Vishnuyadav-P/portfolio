@@ -99,7 +99,6 @@ If the live domain changes, update the canonical URL, Open Graph URL, JSON-LD UR
 ## Deployment
 
 This project can be deployed on any static hosting platform, including:
-
 - Vercel
 - Netlify
 - GitHub Pages

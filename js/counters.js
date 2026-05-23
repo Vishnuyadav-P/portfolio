@@ -26,7 +26,7 @@ export function initCounters() {
         let cur = 0;
         const t = setInterval(() => {
           cur += 0.12;
-          if (cur >= 7.86) { cur = 7.86; clearInterval(t); }
+          if (cur >= 8.02) { cur = 8.02; clearInterval(t); }
           e.target.textContent = cur.toFixed(2);
         }, 40);
         cgpaObs.unobserve(e.target);

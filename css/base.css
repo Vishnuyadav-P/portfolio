@@ -31,21 +31,28 @@ body::before {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%,-50%);
-  transition: width .15s, height .15s, background .15s;
+  transition: opacity .15s, transform .15s;
 }
 #cursor-ring {
   position: fixed;
   top: 0; left: 0;
   width: 40px; height: 40px;
-  border: 1px solid rgba(244,63,94,.4);
+  border: 1px solid var(--accent);
+  opacity: 0.4;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%,-50%);
-  transition: width .3s ease, height .3s ease, border-color .3s;
+  transition: width .3s ease, height .3s ease, opacity .3s ease, background .3s ease, border-color .3s ease;
 }
-body.hovering #cursor { width: 0; height: 0; }
-body.hovering #cursor-ring { width: 60px; height: 60px; border-color: var(--accent); }
+body.hovering #cursor { opacity: 0; transform: translate(-50%,-50%) scale(0.5); }
+body.hovering #cursor-ring { 
+  width: 60px; 
+  height: 60px; 
+  background: var(--accent); 
+  opacity: 0.15; 
+  border-color: transparent; 
+}
 
 /* loader */
 #loader {

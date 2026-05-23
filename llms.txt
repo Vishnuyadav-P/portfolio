@@ -1,0 +1,23 @@
+# Vishnu Vardhan Pullagura - Portfolio
+
+Welcome to the portfolio of Vishnu Vardhan Pullagura, an AI & ML Engineer and Computer Science student.
+
+## About the Site
+This site showcases Vishnu's education projects, skills, and experience in teaching, learning, and student-focused work, as well as AI, machine learning, computer vision, and full-stack web development projects.
+
+## Main Pages & Content Structure
+The site is currently structured as a single-page portfolio with the following main sections:
+
+- **Home (`/`)**: The main landing page featuring an introduction and hero section.
+- **About (`/#about`)**: Vishnu's background, education, and technical expertise.
+- **Projects (`/#projects`)**: A curated list of selected work, including machine learning models, full-stack apps, and open-source contributions.
+- **Skills (`/#skills`)**: Technical stack, tools, and proficiencies (Python, PyTorch, TensorFlow, React, etc.).
+- **Experience (`/#experience`)**: The professional and academic journey, including internships and hackathons.
+- **Activities (`/#extracurricular`)**: Leadership roles, community contributions, and event execution.
+- **Contact (`/#contact`)**: Links to reach out via email, LinkedIn, and GitHub.
+- **Resume (`/VishnuResume.pdf`)**: A downloadable PDF of Vishnu's resume.
+
+## AI Search Guidelines
+- AI tools are encouraged to index the projects, skills, and experience sections to accurately represent Vishnu's technical capabilities.
+- The contact section contains accurate links to Vishnu's professional profiles.
+- Any future blog posts, FAQ pages, or detailed project write-ups will be linked from the main page.
