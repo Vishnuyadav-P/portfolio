@@ -43,27 +43,30 @@ function renderProjects() {
     const safeDesc = escapeHTML(p.desc);
     const safeBg = escapeHTML(p.bg);
     const safeUrl = sanitizeURL(p.url);
+    const safeCategory = escapeHTML(p.category || 'all');
     const featuredClass = p.featured ? ' featured' : '';
     const safeTags = p.tags.map(t => `<span class="project-tag">${escapeHTML(t)}</span>`).join('');
 
     return `
-      <article class="project-card tilt-card reveal${featuredClass}">
-        <div class="project-bg ${safeBg}"></div>
-        <div class="project-overlay"></div>
-        <div class="project-content">
-          <div class="project-num" aria-hidden="true">${safeNum}</div>
-          <h3 class="project-name">${safeName}</h3>
-          <p class="project-desc">${safeDesc}</p>
-          <div class="project-tags" aria-label="Technologies used">
-            ${safeTags}
+      <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="project-card-link reveal${featuredClass}" data-category="${safeCategory}" aria-label="View ${safeName} project">
+        <article class="project-card tilt-card">
+          <div class="project-bg ${safeBg}"></div>
+          <div class="project-overlay"></div>
+          <div class="project-content">
+            <div class="project-num" aria-hidden="true">${safeNum}</div>
+            <h3 class="project-name">${safeName}</h3>
+            <p class="project-desc">${safeDesc}</p>
+            <div class="project-tags" aria-label="Technologies used">
+              ${safeTags}
+            </div>
           </div>
-        </div>
-        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="project-arrow" aria-label="View ${safeName} project">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 14L14 2M14 2H6M14 2V10" stroke="var(--accent)" stroke-width="1.2"/>
-          </svg>
-        </a>
-      </article>
+          <div class="project-arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 14L14 2M14 2H6M14 2V10" stroke="var(--accent)" stroke-width="1.2"/>
+            </svg>
+          </div>
+        </article>
+      </a>
     `;
   }).join('');
 }
@@ -76,36 +79,95 @@ function renderActivities() {
   grid.innerHTML = activities.map(p => {
     const safeNum = escapeHTML(p.num);
     const safeName = escapeHTML(p.name);
+    const safeRole = escapeHTML(p.role);
+    const safeOrg = escapeHTML(p.org);
+    const safeDate = escapeHTML(p.date);
     const safeDesc = escapeHTML(p.desc);
-    const safeBg = escapeHTML(p.bg);
-    const safeUrl = sanitizeURL(p.url);
-    const featuredClass = p.featured ? ' featured' : '';
-    const safeTags = p.tags.map(t => `<span class="project-tag">${escapeHTML(t)}</span>`).join('');
+    const safeImpact = escapeHTML(p.impact);
+    
+    // Render responsibilities list
+    const responsibilitiesHTML = p.bullets && p.bullets.length > 0 
+      ? p.bullets.map(bullet => `<li>${escapeHTML(bullet)}</li>`).join('')
+      : '';
+      
+    const safeTags = p.tags && p.tags.length > 0
+      ? p.tags.map(t => `<span>${escapeHTML(t)}</span>`).join('')
+      : '';
 
     return `
-      <article class="project-card tilt-card reveal${featuredClass}">
-        <div class="project-bg ${safeBg}"></div>
-        <div class="project-overlay"></div>
-        <div class="project-content">
-          <div class="project-num" aria-hidden="true">${safeNum}</div>
-          <h3 class="project-name">${safeName}</h3>
-          <p class="project-desc">${safeDesc}</p>
-          <div class="project-tags" aria-label="Tags">
-            ${safeTags}
-          </div>
+      <article class="activity-card reveal">
+        <div class="activity-num" aria-hidden="true">${safeNum}</div>
+        <div class="activity-content">
+          <div class="activity-role">${safeRole}</div>
+          <h3>${safeName}</h3>
+          <div class="activity-org">${safeOrg}</div>
+          <div class="activity-date" aria-label="Date range">${safeDate}</div>
+          <p>${safeDesc}</p>
+          ${responsibilitiesHTML ? `
+            <div class="activity-columns">
+              <div>
+                <h4>Key Responsibilities &amp; Work</h4>
+                <ul>
+                  ${responsibilitiesHTML}
+                </ul>
+              </div>
+            </div>
+          ` : ''}
+          ${safeTags ? `
+            <div class="activity-tags">
+              ${safeTags}
+            </div>
+          ` : ''}
+          ${safeImpact ? `
+            <div class="activity-impact">
+              <strong>Impact:</strong> ${safeImpact}
+            </div>
+          ` : ''}
         </div>
-        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="project-arrow" aria-label="View ${safeName} details">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M2 14L14 2M14 2H6M14 2V10" stroke="var(--accent)" stroke-width="1.2"/>
-          </svg>
-        </a>
       </article>
     `;
   }).join('');
 }
 
+// Initialize dynamic project filtering functionality
+function initProjectFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('#projects-grid .project-card-link');
+  if (!filterBtns.length || !projectCards.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'block';
+          // Force layout reflow before opacity transitions
+          void card.offsetWidth;
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0) scale(1)';
+        } else {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(15px) scale(0.95)';
+          // Wait for transition before display: none
+          setTimeout(() => {
+            if (card.style.opacity === '0') {
+              card.style.display = 'none';
+            }
+          }, 450);
+        }
+      });
+    });
+  });
+}
+
 renderProjects();
 renderActivities();
+initProjectFilters();
 initLoader();
 initCursor();
 initTyping();

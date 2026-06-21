@@ -20,29 +20,53 @@ export function initTyping() {
   setTimeout(tick, 1400);
 }
 
-// Typewriter → shimmer sweep on hero name
+// Scramble reveal animation on hero name
 export function initHeroName() {
-  function typeLine(el, text, onComplete) {
-    let index = 0;
+  const scramble1 = document.getElementById('scramble-1');
+  const scramble2 = document.getElementById('scramble-2');
+  if (!scramble1 || !scramble2) return;
 
-    el.classList.add('is-typing');
+  const firstText = scramble1.textContent.trim() || "VISHNU";
+  const secondText = scramble2.textContent.trim() || "VARDHAN";
+  const glyphs = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%-+=✦';
+
+  function scrambleLine(el, text, onComplete) {
     el.innerHTML = '';
+    
+    // Create characters with .char class so the flashing sweep still works
+    const charElements = [...text].map(char => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.style.opacity = '0';
+      span.style.display = 'inline-block';
+      span.style.transition = 'opacity 0.25s ease';
+      span.textContent = char;
+      el.appendChild(span);
+      return { el: span, finalChar: char };
+    });
 
-    const typing = setInterval(() => {
-      const char = document.createElement('span');
-      char.className = 'char';
-      char.textContent = text[index];
-      el.appendChild(char);
-      index += 1;
+    // Stagger character scramble reveals
+    charElements.forEach((charObj, charIdx) => {
+      setTimeout(() => {
+        charObj.el.style.opacity = '1';
+        let iterations = 0;
+        const maxIterations = 14;
+        
+        const interval = setInterval(() => {
+          if (iterations >= maxIterations) {
+            clearInterval(interval);
+            charObj.el.textContent = charObj.finalChar;
+          } else {
+            charObj.el.textContent = glyphs.charAt(Math.floor(Math.random() * glyphs.length));
+            iterations++;
+          }
+        }, 45);
+      }, charIdx * 65);
+    });
 
-      if (index >= text.length) {
-        clearInterval(typing);
-        setTimeout(() => {
-          el.classList.remove('is-typing');
-          onComplete();
-        }, 350);
-      }
-    }, 140);
+    if (onComplete) {
+      setTimeout(onComplete, (text.length * 65) + 600);
+    }
   }
 
   function flashChar(el, color, glow) {
@@ -68,21 +92,14 @@ export function initHeroName() {
     }, 3600);
   }
 
-  const scramble1 = document.getElementById('scramble-1');
-  const scramble2 = document.getElementById('scramble-2');
-  if (!scramble1 || !scramble2) return;
-
-  const firstText = scramble1.textContent.trim();
-  const secondText = scramble2.textContent.trim();
   const heroName = scramble1.closest('.hero-name');
-
   scramble1.textContent = '';
   scramble2.textContent = '';
 
   setTimeout(() => {
-    typeLine(scramble1, firstText, () => {
+    scrambleLine(scramble1, firstText, () => {
       setTimeout(() => {
-        typeLine(scramble2, secondText, () => {
+        scrambleLine(scramble2, secondText, () => {
           heroName?.classList.add('is-loaded');
           startLetterFlash(scramble1, scramble2);
         });

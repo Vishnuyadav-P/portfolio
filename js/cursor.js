@@ -1,4 +1,15 @@
 export function initCursor() {
+  // Check if user is on a touch device to disable custom cursor and restore standard cursor
+  const isTouchDevice = 
+    'ontouchstart' in window || 
+    navigator.maxTouchPoints > 0 || 
+    window.matchMedia('(pointer: coarse)').matches;
+
+  if (isTouchDevice) {
+    document.body.classList.add('no-custom-cursor');
+    return;
+  }
+
   const dot  = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
   if (!dot || !ring) return;

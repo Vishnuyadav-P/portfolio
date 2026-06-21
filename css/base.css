@@ -10,6 +10,24 @@ body {
   cursor: none;
 }
 
+body.no-custom-cursor {
+  cursor: default;
+}
+body.no-custom-cursor #cursor,
+body.no-custom-cursor #cursor-ring {
+  display: none !important;
+}
+
+/* focus visibility styles for keyboard accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 /* noise texture */
 body::before {
   content: '';
@@ -32,6 +50,7 @@ body::before {
   z-index: 9999;
   transform: translate(-50%,-50%);
   transition: opacity .15s, transform .15s;
+  mix-blend-mode: difference;
 }
 #cursor-ring {
   position: fixed;
@@ -207,4 +226,14 @@ footer {
   font-size: 11px;
   color: var(--muted);
   letter-spacing: .1em;
+}
+
+/* Custom Text Selection Styles matching reference */
+::selection {
+  background: #0c0b11;
+  color: var(--accent);
+}
+::-moz-selection {
+  background: #0c0b11;
+  color: var(--accent);
 }

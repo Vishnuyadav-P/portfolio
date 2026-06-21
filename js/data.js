@@ -7,6 +7,7 @@ export const projects = [
     bg: 'proj-bg-1',
     url: 'https://answer-evaluation-system.vercel.app/',
     featured: true,
+    category: 'ai-ml',
   },
   {
     num: '02',
@@ -16,6 +17,7 @@ export const projects = [
     bg: 'proj-bg-2',
     url: 'https://leave-management-three-phi.vercel.app/',
     featured: false,
+    category: 'fullstack',
   },
   {
     num: '03',
@@ -25,6 +27,7 @@ export const projects = [
     bg: 'proj-bg-3',
     url: 'http://avinya2k26.vercel.app/',
     featured: false,
+    category: 'webdev',
   },
   {
     num: '04',
@@ -34,24 +37,43 @@ export const projects = [
     bg: 'proj-bg-4',
     url: 'https://github.com/Vishnuyadav-P/portfolio',
     featured: false,
+    category: 'webdev',
   },
 ];
 
 export const activities = [
   {
     num: '01',
-    name: 'Event Organizer, AVINYA-2K25',
-    desc: 'Led the planning and execution of a two-day national-level technical symposium with over 1,200 participants.',
-    tags: ['Leadership', 'Strategic Planning', 'Project Execution', 'Team Management'],
+    name: 'AVINYA-2K25',
+    role: 'Lead Event Organizer',
+    org: 'Chaitanya Bharathi Institute of Technology',
+    date: 'Feb 2025',
+    desc: 'Led the planning, resource management, and execution of AVINYA-2K25, a premier two-day national-level technical symposium.',
+    bullets: [
+      'Managed a cross-functional team of 40+ student organizers and technical staff.',
+      'Coordinated across 5 engineering departments to orchestrate 12+ parallel coding, hackathon, and design events.',
+      'Administered scheduling pipelines and participant registration portals supporting 1,200+ attendees.'
+    ],
+    tags: ['Leadership', 'Event Planning', 'Budgeting', 'Team Collaboration'],
+    impact: 'Secured over ₹50,000 in local sponsorships, increased student participation by 30% compared to previous years, and successfully delivered all 12 events on schedule.',
     bg: 'proj-bg-1',
     url: '#',
     featured: false,
   },
   {
     num: '02',
-    name: 'Technical Leadership',
-    desc: 'Strategy and Tool Researcher at NEXUS Swarm. Led technical initiatives and community-building efforts that helped students improve practical development.',
-    tags: ['Leadership', 'Workshop Design', 'Community Building', 'Technical Mentoring'],
+    name: 'NEXUS Swarm',
+    role: 'Strategy & Tool Researcher',
+    org: 'CBIT Developer Student Community',
+    date: '2024 — Present',
+    desc: 'Lead technical researcher and mentor at NEXUS Swarm, a student-focused community driving practical software and AI engineering literacy.',
+    bullets: [
+      'Researched and integrated modern development tools, AI frameworks, and project deployment strategies.',
+      'Designed and ran hands-on student workshops on Git/GitHub, local AI/LLM integration, and web app building.',
+      'Created learning curriculums for machine learning concepts and code-scaffold templates for student hackathons.'
+    ],
+    tags: ['Technical Mentoring', 'Curriculum Design', 'Community Building', 'AI Tools'],
+    impact: 'Mentored 150+ students in practical development skills, with over 15 teams successfully submitting software prototypes to national hackathons.',
     bg: 'proj-bg-2',
     url: '#',
     featured: false,
