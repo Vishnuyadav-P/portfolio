@@ -55,7 +55,7 @@ export const activities = [
       'Administered scheduling pipelines and participant registration portals supporting 1,200+ attendees.'
     ],
     tags: ['Leadership', 'Event Planning', 'Budgeting', 'Team Collaboration'],
-    impact: 'Secured over ₹50,000 in local sponsorships, increased student participation by 30% compared to previous years, and successfully delivered all 12 events on schedule.',
+    impact: 'Secured over ₹50,000 in local sponsorships, increased student participation by 60% compared to the previous one, and successfully delivered all 12 events on schedule.',
     bg: 'proj-bg-1',
     url: '#',
     featured: false,
@@ -73,7 +73,6 @@ export const activities = [
       'Created learning curriculums for machine learning concepts and code-scaffold templates for student hackathons.'
     ],
     tags: ['Technical Mentoring', 'Curriculum Design', 'Community Building', 'AI Tools'],
-    impact: 'Mentored 150+ students in practical development skills, with over 15 teams successfully submitting software prototypes to national hackathons.',
     bg: 'proj-bg-2',
     url: '#',
     featured: false,

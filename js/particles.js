@@ -10,8 +10,8 @@ export function initParticles() {
 
   let pts = [];
   
-  // Optimize count on mobile to improve performance
-  const COUNT = window.innerWidth < 768 ? 35 : 80;
+  // Optimize count: AI/ML structures are detailed, so lower count looks cleaner and prevents overcrowding
+  const COUNT = window.innerWidth < 768 ? 12 : 25;
 
   // 3D Perspective settings
   const FOV = 300;
@@ -48,55 +48,83 @@ export function initParticles() {
   }
   const rgb = hexToRgb(accentHex);
 
-  // 3D Shape templates (local vertices relative to shape center)
+  // 3D AI & Machine Learning structures
   const SHAPES = {
-    cube: {
+    neural_network: {
       vertices: [
+        // Input Layer (0, 1, 2)
+        [-1.2, -0.8, 0], [-1.2, 0, 0], [-1.2, 0.8, 0],
+        // Hidden Layer (3, 4, 5, 6)
+        [0, -1.0, -0.5], [0, -0.3, 0.5], [0, 0.3, -0.5], [0, 1.0, 0.5],
+        // Output Layer (7, 8)
+        [1.2, -0.5, 0], [1.2, 0.5, 0]
+      ],
+      faces: [],
+      edges: [
+        // Input to Hidden
+        [0, 3], [0, 4], [0, 5], [0, 6],
+        [1, 3], [1, 4], [1, 5], [1, 6],
+        [2, 3], [2, 4], [2, 5], [2, 6],
+        // Hidden to Output
+        [3, 7], [3, 8],
+        [4, 7], [4, 8],
+        [5, 7], [5, 8],
+        [6, 7], [6, 8]
+      ]
+    },
+    decision_tree: {
+      vertices: [
+        // Root Node (0)
+        [0, -1.2, 0],
+        // Level 1 Nodes (1, 2)
+        [-0.7, -0.2, 0], [0.7, -0.2, 0],
+        // Level 2 Leaves (3, 4, 5, 6)
+        [-1.2, 0.8, -0.4], [-0.3, 0.8, 0.4], [0.3, 0.8, -0.4], [1.2, 0.8, 0.4]
+      ],
+      faces: [],
+      edges: [
+        [0, 1], [0, 2],
+        [1, 3], [1, 4],
+        [2, 5], [2, 6]
+      ]
+    },
+    knn_cluster: {
+      vertices: [
+        // Query Instance Center (0)
+        [0, 0, 0],
+        // Neighbor Points (1 to 6)
+        [-0.9, -0.8, 0.5],
+        [0.8, -0.9, -0.6],
+        [-0.7, 0.9, -0.7],
+        [0.9, 0.7, 0.6],
+        [0.1, 1.0, 0.8],
+        [-1.0, 0.1, -0.4]
+      ],
+      faces: [],
+      edges: [
+        [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6]
+      ]
+    },
+    svm_hyperplane: {
+      vertices: [
+        // SVM Boundary Bounding Box (0 to 7)
         [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
-        [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1]
+        [-1, -1, 1],  [1, -1, 1],  [1, 1, 1],  [-1, 1, 1],
+        // Separating Hyperplane Plane (8 to 11)
+        [-1, -0.5, -1], [1, -0.5, -1], [1, 0.5, 1], [-1, 0.5, 1],
+        // Support Vectors / Classification Points (12, 13)
+        [-0.4, -0.8, 0.2], [0.4, 0.8, -0.2]
       ],
       faces: [
-        [0, 1, 2, 3], // Back
-        [4, 5, 6, 7], // Front
-        [0, 1, 5, 4], // Bottom
-        [2, 3, 7, 6], // Top
-        [0, 3, 7, 4], // Left
-        [1, 2, 6, 5]  // Right
+        [8, 9, 10, 11] // Separating plane
       ],
       edges: [
-        [0, 1], [1, 2], [2, 3], [3, 0], // Back face
-        [4, 5], [5, 6], [6, 7], [7, 4], // Front face
-        [0, 4], [1, 5], [2, 6], [3, 7]  // Connectors
-      ]
-    },
-    tetrahedron: {
-      vertices: [
-        [1, 1, 1], [-1, -1, 1], [-1, 1, -1], [1, -1, -1]
-      ],
-      faces: [
-        [0, 1, 2],
-        [0, 2, 3],
-        [0, 3, 1],
-        [1, 2, 3]
-      ],
-      edges: [
-        [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]
-      ]
-    },
-    octahedron: {
-      vertices: [
-        [0, 1, 0], [0, -1, 0],
-        [1, 0, 0], [-1, 0, 0],
-        [0, 0, 1], [0, 0, -1]
-      ],
-      faces: [
-        [0, 2, 4], [0, 4, 3], [0, 3, 5], [0, 5, 2],
-        [1, 2, 4], [1, 4, 3], [1, 3, 5], [1, 5, 2]
-      ],
-      edges: [
-        [0, 2], [0, 3], [0, 4], [0, 5],
-        [1, 2], [1, 3], [1, 4], [1, 5],
-        [2, 4], [4, 3], [3, 5], [5, 2]
+        // Box Outline
+        [0, 1], [1, 2], [2, 3], [3, 0],
+        [4, 5], [5, 6], [6, 7], [7, 4],
+        [0, 4], [1, 5], [2, 6], [3, 7],
+        // Hyperplane Outline
+        [8, 9], [9, 10], [10, 11], [11, 8]
       ]
     }
   };
@@ -128,9 +156,9 @@ export function initParticles() {
     this.z = (Math.random() - 0.5) * 400;
     
     // Slow drifting velocities
-    this.vx = (Math.random() - 0.5) * 0.15;
-    this.vy = (Math.random() - 0.5) * 0.15;
-    this.vz = (Math.random() - 0.5) * 0.15;
+    this.vx = (Math.random() - 0.5) * 0.12;
+    this.vy = (Math.random() - 0.5) * 0.12;
+    this.vz = (Math.random() - 0.5) * 0.12;
     
     // Local rotation angles
     this.rx = Math.random() * Math.PI * 2;
@@ -138,23 +166,23 @@ export function initParticles() {
     this.rz = Math.random() * Math.PI * 2;
     
     // Local rotation velocities (making them spin on their own)
-    this.rvx = (Math.random() - 0.5) * 0.02;
-    this.rvy = (Math.random() - 0.5) * 0.02;
-    this.rvz = (Math.random() - 0.5) * 0.02;
+    this.rvx = (Math.random() - 0.5) * 0.015;
+    this.rvy = (Math.random() - 0.5) * 0.015;
+    this.rvz = (Math.random() - 0.5) * 0.015;
     
     // Dimensions
-    this.size = Math.random() * 4.5 + 3.5; // size radius between 3.5 and 8.0 pixels
-    this.baseO = Math.random() * 0.35 + 0.35; // Base opacity between 0.35 and 0.70
+    this.size = Math.random() * 5 + 12; // Size scale between 12 and 17 pixels (for visibility of detail)
+    this.baseO = Math.random() * 0.35 + 0.4; // Base opacity between 0.4 and 0.75
     
-    // Random 3D shape assignment
-    const shapes = ['cube', 'tetrahedron', 'octahedron'];
+    // Random AI/ML structure assignment
+    const shapes = ['neural_network', 'decision_tree', 'knn_cluster', 'svm_hyperplane'];
     this.shapeType = shapes[Math.floor(Math.random() * shapes.length)];
   }
 
   function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // 1. Draw connections between particles (Constellation network)
+    // 1. Draw connections between particle centers (Constellation data network)
     for (let i = 0; i < pts.length; i++) {
       const ptA = pts[i];
       // Skip connections if offscreen
@@ -169,26 +197,26 @@ export function initParticles() {
         const dz = ptA.z - ptB.z;
         const d = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-        if (d < 125) {
+        if (d < 160) {
           const avgScale = (ptA.projScale + ptB.projScale) / 2;
-          const alpha = (1 - d / 125) * 0.12 * avgScale;
+          const alpha = (1 - d / 160) * 0.08 * avgScale;
           
           ctx.beginPath();
           ctx.moveTo(ptA.projX, ptA.projY);
           ctx.lineTo(ptB.projX, ptB.projY);
           ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`;
-          ctx.lineWidth = 0.5 * avgScale;
+          ctx.lineWidth = 0.4 * avgScale;
           ctx.stroke();
         }
       }
     }
 
-    // 2. Draw 3D shapes sorted by depth Z descending (far to near)
+    // 2. Draw 3D structures sorted by depth Z descending (far to near)
     const sortedPts = [...pts].sort((a, b) => b.z - a.z);
     
     sortedPts.forEach(p => {
       // Skip drawing if center is way offscreen
-      if (p.projX < -50 || p.projX > canvas.width + 50 || p.projY < -50 || p.projY > canvas.height + 50) return;
+      if (p.projX < -60 || p.projX > canvas.width + 60 || p.projY < -60 || p.projY > canvas.height + 60) return;
 
       const template = SHAPES[p.shapeType];
       const projectedVertices = [];
@@ -214,28 +242,30 @@ export function initParticles() {
         projectedVertices.push({ sx, sy, scale, z: wz });
       }
 
-      // Draw faces (with Painter's algorithm for internal depth)
-      const facesWithDepth = template.faces.map(faceIndices => {
-        const avgZ = faceIndices.reduce((sum, idx) => sum + worldVertices[idx][2], 0) / faceIndices.length;
-        return { indices: faceIndices, z: avgZ };
-      });
-      facesWithDepth.sort((a, b) => b.z - a.z);
+      // Draw faces (translucent plane fills, like in SVM)
+      if (template.faces && template.faces.length > 0) {
+        const facesWithDepth = template.faces.map(faceIndices => {
+          const avgZ = faceIndices.reduce((sum, idx) => sum + worldVertices[idx][2], 0) / faceIndices.length;
+          return { indices: faceIndices, z: avgZ };
+        });
+        facesWithDepth.sort((a, b) => b.z - a.z);
 
-      facesWithDepth.forEach(face => {
-        ctx.beginPath();
-        const first = projectedVertices[face.indices[0]];
-        ctx.moveTo(first.sx, first.sy);
-        for (let k = 1; k < face.indices.length; k++) {
-          const v = projectedVertices[face.indices[k]];
-          ctx.lineTo(v.sx, v.sy);
-        }
-        ctx.closePath();
+        facesWithDepth.forEach(face => {
+          ctx.beginPath();
+          const first = projectedVertices[face.indices[0]];
+          ctx.moveTo(first.sx, first.sy);
+          for (let k = 1; k < face.indices.length; k++) {
+            const v = projectedVertices[face.indices[k]];
+            ctx.lineTo(v.sx, v.sy);
+          }
+          ctx.closePath();
 
-        // Fill faces semi-transparently to create a solid 3D feel
-        const fillAlpha = p.baseO * p.projScale * 0.1;
-        ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${fillAlpha})`;
-        ctx.fill();
-      });
+          // Soft translucent fill for separating hyperplane
+          const fillAlpha = p.baseO * p.projScale * 0.15;
+          ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${fillAlpha})`;
+          ctx.fill();
+        });
+      }
 
       // Draw wireframe edges
       ctx.beginPath();
@@ -245,17 +275,32 @@ export function initParticles() {
         ctx.moveTo(vA.sx, vA.sy);
         ctx.lineTo(vB.sx, vB.sy);
       });
-      const edgeAlpha = p.baseO * p.projScale * 0.4;
+      const edgeAlpha = p.baseO * p.projScale * 0.35;
       ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${edgeAlpha})`;
-      ctx.lineWidth = 0.7 * p.projScale;
+      ctx.lineWidth = 0.65 * p.projScale;
       ctx.stroke();
 
-      // Draw glowing vertices
-      projectedVertices.forEach(v => {
+      // Draw glowing vertices (nodes)
+      projectedVertices.forEach((v, index) => {
         ctx.beginPath();
-        ctx.arc(v.sx, v.sy, 1.2 * v.scale, 0, Math.PI * 2);
-        const vertAlpha = p.baseO * v.scale * 0.8;
-        ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${vertAlpha})`;
+        
+        // SVM Support Vectors (indices 12 and 13) are emphasized
+        const isSvmVector = (p.shapeType === 'svm_hyperplane' && index >= 12);
+        const radius = isSvmVector ? 2.5 * v.scale : 1.2 * v.scale;
+        
+        ctx.arc(v.sx, v.sy, radius, 0, Math.PI * 2);
+        
+        let vertAlpha = p.baseO * v.scale * 0.8;
+        if (isSvmVector) {
+          vertAlpha = p.baseO * v.scale * 1.0;
+          if (index === 12) {
+            ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${vertAlpha})`; // Accent Red support vector
+          } else {
+            ctx.fillStyle = `rgba(38,198,218,${vertAlpha})`; // Cyan-blue support vector
+          }
+        } else {
+          ctx.fillStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},${vertAlpha})`;
+        }
         ctx.fill();
       });
     });
@@ -383,8 +428,8 @@ export function initParticles() {
       // Mouse position controls rotation target speed/direction
       const dx = (e.clientX / window.innerWidth - 0.5);
       const dy = (e.clientY / window.innerHeight - 0.5);
-      targetAngleY = dx * 0.015;
-      targetAngleX = dy * 0.015;
+      targetAngleY = dx * 0.012;
+      targetAngleX = dy * 0.012;
     });
     
     // Slow down when mouse leaves
